@@ -9,10 +9,13 @@
 #ifndef Lab3_scanner_h
 #define Lab3_scanner_h
 
-#include "common.h"
-#include "print.h"
+//#include "common.h"
+//#include "print.h"
 
 void init_scanner();
 Token* get_token();
+
+
+
 
 #endif

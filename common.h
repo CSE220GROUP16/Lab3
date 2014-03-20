@@ -19,12 +19,29 @@
 #define MAX_SOURCE_LINE_LENGTH  256
 #define MAX_TOKEN_STRING_LENGTH MAX_SOURCE_LINE_LENGTH
 #define MAX_PRINT_LINE_LENGTH   80
-#define MAX_LINES_PER_PAGE      50
+#define MAX_LINES_PER_PAGEw      30
 #define DATE_STRING_LENGTH      26
+
+ char source_buffer[MAX_SOURCE_LINE_LENGTH];
+ int ttr_start;
+ char theCh;
+ char theWordUpper[MAX_TOKEN_STRING_LENGTH];
+ char theWord[MAX_TOKEN_STRING_LENGTH];
+ char theWordIdentifier[MAX_TOKEN_STRING_LENGTH];
+ int theWordIndex;
+ int rwI;
+ int rwJ;
+ int aaaaa;
 
 typedef enum
 {
-    FALSE, TRUE,
+    ttab = '\t',
+    sspace = ' '
+} mySpacess;
+
+typedef enum
+{
+    FALSE, TRUE
 }
 BOOLEAN;
 
@@ -53,14 +70,32 @@ typedef enum
 }
 LiteralType;
 
+typedef union
+{
+    int lv_int;
+    char lv_string[MAX_SOURCE_LINE_LENGTH];
+    float lv_real;
+}
+LiteralValue;
+    //LiteralValue numbers;
+	//numbers.PI = 3.14;
+	//numbers.B = 50;
+
+
 /**************
  this is a valid Pascal token.  A token must have a literal type,
- a literal value, and a token code.  It also must have a link to 
+ a literal value, and a token code.  It also must have a link to
  another token since this must be stored as a linked list.
  ***************/
-typedef struct
+typedef struct Token_t
 {
-    //Missing code goes here
+    LiteralType lt;
+    LiteralValue lv;
+    TokenCode tc;
+    struct Token_t * next; //Missing code goes here
+   int myUsage_int;
+   char myUsage_str[MAX_SOURCE_LINE_LENGTH];
+   int val;
 }
 Token;
 
