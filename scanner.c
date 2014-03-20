@@ -111,40 +111,27 @@ Token* get_token()
       Token * get_temp;
       get_temp = malloc( sizeof(Token) );
       get_temp->val = ttr_start;
-    //printf("%d", arrLen);
-    //free(get_temp);
 
 
     char ch; //This can be the current character you are examining during scanning.
     char token_string[MAX_TOKEN_STRING_LENGTH]; //Store your token here as you build it.
     char *token_ptr;// = ???; //write some code to point this to the beginning of token_string
-   // ???;  //I am missing the most important variable in the function, what is it?  Hint: what should I return?
 
     ch = source_buffer[ ttr_start];
     int i =0;
-    for (i =0; i< arrLen; i++)
-        //printf("%c", source_buffer[i] );
-        //printf("\n\t");
-    for (i =0; i< arrLen; i++)
-        //printf("%d-", source_buffer[i] );
-        //printf("\n\t");
 
 
     ch = get_char();
- if ((ch == ' ') || (ch == '\t'))
-        { //1.  Skip past all of the blanks
-   //printf("\nhello6.61\n");
+    if ((ch == ' ') || (ch == '\t'))
+        {
             skip_blanks();
-         ch = source_buffer[ttr_start];
-             //printf("^%c-%d^",theCh, ttr_start);
-
+            ch = source_buffer[ttr_start];
          }
 
  if (ch == '{')
-        {    //printf("\nhello6.62\n");
+        {
              skip_comment();
          ch = source_buffer[++ttr_start];
-             //printf("^%c-%d^",theCh, ttr_start);
 
          }
 
@@ -156,8 +143,7 @@ Token* get_token()
 
 
     if ( (ch == '\r') ||(ch == '\n') || (ch == '\f')) // newline or line feed
-        {//get_string();
-          //printf("-newline-");
+        {
           free(get_temp);
           ttr_start =0;
           return NULL;
@@ -171,16 +157,11 @@ Token* get_token()
     else if ( ( (ch <= 'z')&&(ch>='a') ) || ( (ch <= 'Z')&& (ch >='A')))
         {
             if ( get_word())
-            {// create reserver word token
-               // printf("\nwwwwwwwwwww\n");
-               // printf("\t>> %s \t%s\n", rw_table[rwI][rwJ].string,theWord );
-                printf("\t>> %s \t\t%s\n", theWordUpper, theWord );
+            { printf("\t>> %s \t\t%s\n", theWordUpper, theWord );
                 sprintf(get_temp->myUsage_str,"%s",theWordUpper);
             }
             else
             {
-            // create identifier word token
-            // printf("\t>> %s\t%s","<IDENTIFIER>", theWordIdentifier);
              printf("\t>> <IDENTIFIER> \t%s \n", theWord);
             sprintf(get_temp->myUsage_str,"%s",theWord);
 
@@ -189,7 +170,6 @@ Token* get_token()
         }
     else if ((ch <= '9') && (ch >='0'))
         {
-             //printf("nnnnnnnnnnnnnn");
             if( get_number())
                 { printf("\t>> <NUMBER> \t%s \n", theWordUpper);
                     sprintf(get_temp->myUsage_str,"%s",theWordUpper);
@@ -309,7 +289,6 @@ static bool get_word(void)
         ch= get_char();
     }
 
-//printf("\ngot theword: %s \n",theWord);
     int g =0;
     //Downshift the word, to make it lower case
     memset(theWordUpper, '\0',sizeof(theWordUpper));
@@ -319,7 +298,6 @@ static bool get_word(void)
         g++;
         }
 
-//printf("\ngot theword lower: %s \n",theWord);
     theCh = ch;
 
 
@@ -329,9 +307,6 @@ static bool get_word(void)
      */
      //printf("\ncalling is_reserved_word\n");
     check_Reserve_Word = is_reserved_word(theWord);
-        // printf("\nreturned calling is_reserved_word\n, %b", check_Reserve_Word);
-   // if (check_Reserve_Word)
-       // sprintf(theWordIdentifier,"%s","<IDENTIFIER>");
 
  return check_Reserve_Word;
 
@@ -353,8 +328,7 @@ static bool get_number()
  /*
      Write some code to Extract the word
      */
-//printf("++%c",ch);
-    while ((ch=='-') ||(ch =='e')||(ch=='.')|| (ch <= '9') && (ch >='0'))
+   while ((ch=='-') ||(ch =='e')||(ch=='.')|| (ch <= '9') && (ch >='0'))
             {
         theWord[theWordIndex]= ch;
         theWordIndex++;
@@ -363,8 +337,6 @@ static bool get_number()
         //printf("%c",ch);
         check_number = true;
     }
-//printf("%c++",ch);
-//printf("\ngot theword: %s \n",theWord);
     int g =0;
     //Downshift the word, to make it lower case
     memset(theWordUpper, '\0',sizeof(theWordUpper));
@@ -382,11 +354,6 @@ static bool get_number()
      Write some code to Check if the word is a reserved word.
      if it is not a reserved word its an identifier.
      */
-     //printf("\ncalling is_reserved_word\n");
-    //check_Reserve_Word = is_reserved_word(theWord);
-        // printf("\nreturned calling is_reserved_word\n, %b", check_Reserve_Word);
-    //if (check_Reserve_Word)
-       // sprintf(theWordIdentifier,"%s","<IDENTIFIER>");
 
  return check_number;
 
@@ -574,19 +541,11 @@ if (check_special)
         g++;
         }
 }
-//printf("\ngot theword lower: %s \n",theWord);
-    //theCh = ch;
-
 
     /*
      Write some code to Check if the word is a reserved word.
      if it is not a reserved word its an identifier.
      */
-     //printf("\ncalling is_reserved_word\n");
-    //check_Reserve_Word = is_reserved_word(theWord);
-        // printf("\nreturned calling is_reserved_word\n, %b", check_Reserve_Word);
-   // if (check_Reserve_Word)
-       // sprintf(theWordIdentifier,"%s","<IDENTIFIER>");
 
  return check_special;
 
@@ -614,10 +573,7 @@ static BOOLEAN is_reserved_word(char myWord1[])
         ww = &rw_table[i][j];
         if (ww->token_code != 0)
         {
-
-            //sprintf(a, "%s",(ww->string);
-            //printf("\nhello 9.1\n");
-            result = strncmp(rw_table[i][j].string, theWord,d );
+        result = strncmp(rw_table[i][j].string, theWord,d );
 
             //printf("\nhello 9.2\n");
             if (result == 0)

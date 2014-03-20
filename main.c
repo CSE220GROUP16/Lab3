@@ -30,12 +30,7 @@ int main(int argc, const char * argv[])
     char source_name[MAX_FILE_NAME_LENGTH];
     char date[DATE_STRING_LENGTH];
     FILE *source_file;
-    int aaa = 9;
-    Token *head;
-    Token *token;
-    Token *temp;
-    Token *temp_d;
-    Token *token_d;
+
 
     Token *head_t;
     Token *token_t;
@@ -44,31 +39,20 @@ int main(int argc, const char * argv[])
     Token *token_td;
 
     ttr_start = 0;
-    //theCh = assigned firest in scanner.c
 
-    //Token *tail;
     Token *token_list; //This needs to be implemented as a linked list in scanner.h.
   BOOLEAN continueReadingFile;// = TRUE;  // set var to true
     if (argc < 2)
         {
-       test001();
+            test001();
         }
 
     source_file = init_lister(argv[1], source_name, date);
 
-    //MAX_LINES_PER_PAGEw
+
     if (source_file != NULL)
     {
-       // printf("test 4 ");
         init_scanner(source_file, source_name, date);
-
-
-        // root of link list with line form source code
-        head = malloc( sizeof(Token) );
-        head->val = 0;
-        token = head;
-        temp = head;
-        token_list = head;
 
          // root of link list with nodes of token
         head_t = malloc( sizeof(Token) );
@@ -79,25 +63,15 @@ int main(int argc, const char * argv[])
 
 
         continueReadingFile = get_source_line();
+    int val =0;
 
-        //continueReadingFile = get_source_line(source_buffer);
         // loop thru the text file line by line until eof
         while ( continueReadingFile == TRUE){
-                temp = malloc( sizeof(Token) );
-                token->next = temp; // create the link
-                temp->next = NULL;
-                temp->val = token->val + 1; // assign token number
 
-        // loop breaks if raches eof with false return
-
-
-
-            sprintf(temp->myUsage_str, "%s", source_buffer);
-            token = temp;
             int a = 4;
+            val = val + 1;
 
 
-           // printf("\thello6 %d\n\t", ttr_start);
             temp_t = get_token();
             while (temp_t != NULL)
                 {
@@ -105,33 +79,17 @@ int main(int argc, const char * argv[])
                 //add_token_to_list(token_list, token);
                 token_t->next = temp_t; // create the link
                 temp_t->next = NULL;
-                temp_t->val = temp->val;//token_t->val + 1; // assign token number
+                temp_t->val = val;
                 token_t = temp_t;
 
-              //  free(token_t);
+
                  temp_t = get_token();
                 }
-              //printf("\n\thello8 %d\n", ttr_start);
-           // while (--a > 0);//What is the sentinal value that ends this loop?
 
-            // get another line from source file
             continueReadingFile = get_source_line();
 
         } // end reading file
 
-        // print then delete  link list with line numbers
-        token_d = head->next;
-
-       // printf("\n\n\t\t Printing linklist of tokens\n\n")
-        while(token_d)
-        {
-           // printf(" %d %s", token_d->val, token_d->myUsage_str);
-            temp_d = token_d->next;
-            free(token_d);
-            token_d = temp_d;
-        }
-        // delete head of linked list
-        free(head);
 
 // print then delete  link list with tokens
         token_td = head_t->next;
