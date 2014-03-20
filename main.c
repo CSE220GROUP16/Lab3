@@ -12,6 +12,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+#include "testCode.h"
 #include "common.h"
 #include "scanner.h"
 #include "print.h"
@@ -50,8 +51,7 @@ int main(int argc, const char * argv[])
   BOOLEAN continueReadingFile;// = TRUE;  // set var to true
     if (argc < 2)
         {
-        printf(" missing input file, should be ./lab3 pascalFile.pas\n you need to enter the PASCAL source file\n exited program");
-        exit(1);
+       test001();
         }
 
     source_file = init_lister(argv[1], source_name, date);
@@ -154,7 +154,7 @@ int main(int argc, const char * argv[])
     }
     else
     {
-        printf("could not open file:%s ; exited program",source_name);
+       test002(source_name);
     }
     return 0;
 }
